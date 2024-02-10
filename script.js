@@ -107,7 +107,11 @@ function optionSelected(answer){
     let correcAns = questions[que_count].answer;
     const allOptions = option_list.children.length;
 
-    if(userAns == correcAns){
+    for (let i = 0; i < allOptions; i++) {
+        option_list.children[i].classList.add("disabled");
+    }
+
+    if (userAns == correcAns) {
         userScore += 1;
         answer.classList.add("correct");
         answer.insertAdjacentHTML("beforeend", tickIconTag);
@@ -117,10 +121,14 @@ function optionSelected(answer){
         answer.classList.add("incorrect");
         answer.insertAdjacentHTML("beforeend", crossIconTag);
         console.log("Wrong Answer");
-    }
 
-    for(let i=0; i < allOptions; i++){
-        option_list.children[i].classList.add("disabled");
+        // Display the correct answer
+        for (let i = 0; i < allOptions; i++) {
+            if (option_list.children[i].textContent == correcAns) {
+                option_list.children[i].classList.add("correct");
+                option_list.children[i].insertAdjacentHTML("beforeend", tickIconTag);
+            }
+        }
     }
 
     next_btn.classList.add("show");
